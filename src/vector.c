@@ -126,3 +126,58 @@ vector_status vector_pop_back(vector *vector) {
 void vector_clear(vector *vector) {
     if (vector != NULL) { vector->size = 0; }
 }
+
+vector_status insert(vector *vector, const size_t index, const void *element) {
+    if (vector == NULL || element == NULL || vector->element_size == 0) { return VECTOR_NULL_ARGUMENT; }
+
+    if (index >= vector->size) { return VECTOR_OUT_OF_RANGE; }
+
+    if (vector->size == SIZE_MAX) { return VECTOR_OVERFLOW; }
+
+    void *copy = malloc(vector->element_size);
+
+    if (copy == NULL) { return VECTOR_OUT_OF_MEMORY; }
+
+    memcpy(copy, element, vector->element_size);
+
+    if (vector->size == vector->capacity) {
+        size_t capacity;
+
+        if (vector->capacity == 0) {
+            capacity = INITIAL_CAPACITY;
+        } else {
+            if (vector->capacity > SIZE_MAX / 2) {
+                free(copy);
+                return VECTOR_OVERFLOW;
+            }
+
+            capacity = vector->capacity * 2;
+        }
+
+        const vector_status status = vector_reserve(vector, capacity);
+
+        if (status != VECTOR_OK) {
+            free(copy);
+            return status;
+        }
+    }
+
+    unsigned char *data = vector->data;
+
+    memmove(
+        data + (index + 1) * vector->element_size,
+        data + index * vector->element_size,
+        (vector->size - index) * vector->element_size
+    );
+
+    memcpy(
+        data + index * vector->element_size,
+        copy,
+        vector->element_size
+    );
+
+    vector->size++;
+
+    free(copy);
+    return VECTOR_OK;
+}
