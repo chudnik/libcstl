@@ -127,7 +127,7 @@ void vector_clear(vector *vector) {
     if (vector != NULL) { vector->size = 0; }
 }
 
-vector_status insert(vector *vector, const size_t index, const void *element) {
+vector_status vector_insert(vector *vector, const size_t index, const void *element) {
     if (vector == NULL || element == NULL || vector->element_size == 0) { return VECTOR_NULL_ARGUMENT; }
 
     if (index >= vector->size) { return VECTOR_OUT_OF_RANGE; }
@@ -182,7 +182,7 @@ vector_status insert(vector *vector, const size_t index, const void *element) {
     return VECTOR_OK;
 }
 
-vector_status erase(vector *vector, const size_t first, const size_t last) {
+vector_status vector_erase(vector *vector, const size_t first, const size_t last) {
     if (vector == NULL || vector->element_size == 0) { return VECTOR_NULL_ARGUMENT; }
 
     if (last < first || last > vector->size) { return VECTOR_OUT_OF_RANGE; }
