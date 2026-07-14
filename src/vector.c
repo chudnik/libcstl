@@ -206,3 +206,15 @@ vector_status vector_erase(vector *vector, const size_t first, const size_t last
 
     return VECTOR_OK;
 }
+
+vector_status vector_swap(vector *left, vector *right) {
+    if (left == NULL || right == NULL) { return VECTOR_NULL_ARGUMENT; }
+
+    if (left == right) { return VECTOR_OK; }
+
+    const vector temp = *left;
+    *left = *right;
+    *right = temp;
+
+    return VECTOR_OK;
+}

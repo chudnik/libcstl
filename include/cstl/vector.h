@@ -50,4 +50,6 @@ vector_status vector_insert(vector *vector, size_t index, const void *element);
 
 vector_status vector_erase(vector *vector, size_t first, size_t last);
 
+vector_status vector_swap(vector *left, vector *right);
+
 #endif //LIBCSTL_VECTOR_H
