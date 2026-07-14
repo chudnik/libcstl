@@ -46,4 +46,6 @@ void vector_clear(vector *vector);
 
 vector_status insert(vector *vector, size_t index, const void *element);
 
+vector_status erase(vector *vector, size_t first, size_t last);
+
 #endif //LIBCSTL_VECTOR_H

@@ -181,3 +181,26 @@ vector_status insert(vector *vector, const size_t index, const void *element) {
     free(copy);
     return VECTOR_OK;
 }
+
+vector_status erase(vector *vector, const size_t first, const size_t last) {
+    if (vector == NULL || vector->element_size == 0) { return VECTOR_NULL_ARGUMENT; }
+
+    if (last < first || last > vector->size) { return VECTOR_OUT_OF_RANGE; }
+
+    if (first == last) { return VECTOR_OK; }
+
+    const size_t remove_count = last - first;
+    const size_t tail_count = vector->size - last;
+
+    unsigned char *data = vector->data;
+
+    memmove(
+        data + first * vector->element_size,
+        data + last * vector->element_size,
+        tail_count * vector->element_size
+    );
+
+    vector->size -= remove_count;
+
+    return VECTOR_OK;
+}
