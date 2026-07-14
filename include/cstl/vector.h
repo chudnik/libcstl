@@ -26,6 +26,8 @@ size_t vector_size(const vector *vector);
 
 size_t vector_capacity(const vector *vector);
 
+void *vector_data(const vector *vector);
+
 bool vector_empty(const vector *vector);
 
 void *vector_at(const vector *vector, size_t index);

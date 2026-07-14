@@ -44,6 +44,8 @@ size_t vector_size(const vector *vector) { return vector != NULL ? vector->size 
 
 size_t vector_capacity(const vector *vector) { return vector != NULL ? vector->capacity : 0; }
 
+void *vector_data(const vector *vector) { return vector != NULL ? vector->data : NULL; }
+
 bool vector_empty(const vector *vector) { return vector == NULL || vector->size == 0; }
 
 void *vector_at(const vector *vector, const size_t index) {
